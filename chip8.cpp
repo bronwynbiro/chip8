@@ -25,6 +25,9 @@ unsigned char font[80] =
     0xF0, 0x80, 0xF0, 0x80, 0x80  //F
 };
 
+chip8::chip8() {}
+chip8::~chip8() {}
+
 // Initialize: Set program counter to 0x200, reset opcode, indexRegister, stack pointer, keypad, V
 // registers, and clear stack and memory.
 void chip8::init() {
@@ -68,7 +71,7 @@ bool chip8::load(const char *filePath) {
 
     printf("Loading ROM: %s\n", filePath);
 
-    FindexRegisterLE* rom = fopen(filePath, "rb");
+    FILE* rom = fopen(filePath, "rb");
     if (rom == NULL) {
         printf("Could not open ROM.");
         return false;
@@ -89,7 +92,7 @@ bool chip8::load(const char *filePath) {
     // Copy ROM into buffer
     size_t result = fread(romBuffer, sizeof(char), (size_t)romSize, rom);
     if (result != romSize) {
-        printf("Could not read ROM")
+        printf("Could not read ROM");
         return false;
     }
 
@@ -100,7 +103,7 @@ bool chip8::load(const char *filePath) {
         }
     }
     else {
-        printf("ROM is too larger")
+        printf("ROM is too large");
         return false;
     }
 
@@ -464,8 +467,9 @@ void chip8::cycle() {
         --delayTimer;
 
     if (soundTimer > 0)
-        if(soundTimer == 1);
+        if(soundTimer == 1) {
         --soundTimer;
+      }
 
 }
 

@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/bronwynbiro/desktop/School/cmpt/chip8/chip8.cpp
+stdio.h
+-
+stdlib.h
+-
+iostream
+-
+random
+-
+time.h
+/Users/bronwynbiro/desktop/School/cmpt/chip8/time.h
+chip8.h
+/Users/bronwynbiro/desktop/School/cmpt/chip8/chip8.h
+
+/Users/bronwynbiro/desktop/School/cmpt/chip8/chip8.h
+
+/Users/bronwynbiro/desktop/School/cmpt/chip8/main.cpp
+iostream
+-
+chrono
+-
+thread
+-
+stdint.h
+/Users/bronwynbiro/desktop/School/cmpt/chip8/stdint.h
+SDL2/SDL.h
+/Users/bronwynbiro/desktop/School/cmpt/chip8/SDL2/SDL.h
+chip8.h
+/Users/bronwynbiro/desktop/School/cmpt/chip8/chip8.h
+

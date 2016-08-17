@@ -2,10 +2,10 @@ class chip8 {
 	public:
 		chip8();
 		~chip8();
-
+		
 		bool drawFlag;
 
-		void emulate();
+		void cycle();
 		void render();
 		bool load(const char * filename);
 
