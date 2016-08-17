@@ -4,6 +4,7 @@
 #include "stdint.h"
 #include "SDL2/SDL.h"
 #include "chip8.h"
+#include "OpenGL/gl.h"
 
 // Keypad keymap
 uint8_t keymap[16] = {
@@ -28,14 +29,14 @@ uint8_t keymap[16] = {
 int main(int argc, char **argv) {
 
     if (argc != 2) {
-        printf("Usage: chip8 <ROM file>");
+        printf("Usage: ./chip8 <ROM file>");
         return 1;
     }
 
     chip8 myChip8 = chip8();
 
-    int windowWidth = 1024;
-    int windowHeight = 512;
+    int width = 1024;
+    int height = 512;
     SDL_Window* window = NULL;
 
     // Initialize SDL
@@ -47,7 +48,7 @@ int main(int argc, char **argv) {
     window = SDL_CreateWindow(
             "CHIP-8 Emulator",
             SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-            w, h, SDL_WINDOW_SHOWN
+            width, height, SDL_WINDOW_SHOWN
     );
     if (window == NULL){
         printf( "Window could not be created. SDL_Error: %s\n",
@@ -57,7 +58,7 @@ int main(int argc, char **argv) {
 
     // Create renderer
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
-    SDL_RenderSetLogicalSize(renderer, w, h);
+    SDL_RenderSetLogicalSize(renderer, width, height);
 
     // Create texture that stores frame buffer
     SDL_Texture* sdlTexture = SDL_CreateTexture(renderer,
@@ -89,8 +90,8 @@ int main(int argc, char **argv) {
                     exit(0);
 
                 if (e.key.keysym.sym == SDLK_F1)
-                    goto load;      // *gasp*, a goto statement!
-                                    // Used to reset/reload ROM
+                    goto load;      // Reload ROM
+
 
                 for (int i = 0; i < 16; ++i) {
                     if (e.key.keysym.sym == keymap[i]) {
@@ -117,7 +118,7 @@ int main(int argc, char **argv) {
                 uint8_t pixel = myChip8.graphics[i];
                 pixels[i] = (0x00FFFFFF * pixel) | 0xFF000000;
             }
-            
+
             SDL_UpdateTexture(sdlTexture, NULL, pixels, 64 * sizeof(Uint32));
             // Clear screen and render
             SDL_RenderClear(renderer);

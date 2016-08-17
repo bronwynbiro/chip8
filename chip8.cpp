@@ -487,3 +487,29 @@ void chip8::render()
 	}
 	printf("\n");
 }
+
+// Draws sprite at (V[X], V[Y]) of specified height
+void chip8::draw(unsigned short X, unsigned short Y,
+						unsigned short height) {
+	unsigned short x = V[X]; // x-position of sprite
+	unsigned short y = V[Y]; // y-position of sprite
+	unsigned short pixel;
+
+	V[0xF] = 0; // Reset V[F] register
+
+	for (int y_line = 0; y_line < height; y_line++)
+	{
+		pixel = memory[indexRegister + y_line];
+
+		// Each pixel is 8 bits long, so loop through
+		for(int x_col = 0; x_col < 0x08; x_col++)
+		{
+			if((pixel & (0x80 >> x_col)) != 0)
+			{
+				if(graphics[x + x_col + ((y + y_line) * 64)] == 1)
+					V[0xF] = 1; // Collision
+				graphics[x + x_col + ((y + y_line) * 64)] ^= 1;
+			}
+		}
+	}
+}

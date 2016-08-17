@@ -2,11 +2,13 @@ class chip8 {
 	public:
 		chip8();
 		~chip8();
-		
+
 		bool drawFlag;
 
 		void cycle();
 		void render();
+		void draw(unsigned short X, unsigned short Y,
+								unsigned short height);
 		bool load(const char * filename);
 
 		unsigned char  graphics[2048];
